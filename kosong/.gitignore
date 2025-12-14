@@ -19,3 +19,5 @@ wheels/
 
 # Local generated files
 /docs/
+
+./backend/.env
