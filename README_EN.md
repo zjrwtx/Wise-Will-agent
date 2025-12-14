@@ -1,22 +1,66 @@
+````md
 # Wise-will Edu Agent Platform
 
-An Agent-driven educational visualization platform that helps students understand complex concepts through conversational interaction and automatically generates interactive visualizations.
+## 📚 Open-Source Educational AI Agent
+
+This is an **open-source educational AI Agent product**.  
+Its design is **inspired by excellent products such as Ant Lingguang, Doubao Aixue, and Feixiang Teacher**,  
+and it is dedicated to **visually explaining everything you ask**, truly achieving the goal of being **built for education**.
+
+---
+
+### 🎯 Why Education?
+
+We believe that **education is one of the most important real-world application scenarios for AI agents**.  
+By choosing **open source**, we hope to:
+
+- 🌱 Support more **schools**
+- 👩‍🎓 Empower more **students**
+- 👨‍🏫 Assist more **educators**
+
+So that **AI-powered education** is not limited to a few platforms, but can be genuinely adopted and used by more people.
+
+---
+
+### 🚧 Project Status
+
+- The current version is still **relatively rough**
+- Features and user experience are **actively being refined**
+- The project will **continue to evolve and improve**
+
+---
+
+### 🤝 Collaboration & Contribution
+
+You are welcome to:
+
+- Use it  
+- Share feedback  
+- Contribute code  
+
+Let’s build better educational AI together 👏
+
+---
+
+> **Enjoy education agent time together 🚀**
+
+---
 
 ## Features
 
-- **Conversational Learning** - Enter a topic you want to learn, and AI responds with guided teaching
-- **Concept Map Navigation** - Visualize knowledge structures, click nodes to explore related concepts
-- **Real-time Visualization Generation** - AI automatically generates interactive HTML visualizations
-- **Cloud Deployment** - Automatically deploy to cloud via EdgeOne Pages MCP
-- **Progress Tracking** - Real-time display of AI processing stages (Thinking → Writing → Tool Calling → Deploying)
+- **Conversational Learning** – Enter a topic you want to learn, and the AI responds with guided, instructional dialogue
+- **Concept Map Navigation** – Visualized knowledge structures with clickable nodes to explore related concepts
+- **Real-time Visualization Generation** – The AI automatically generates interactive HTML visualizations
+- **Cloud Deployment** – One-click deployment to the cloud via EdgeOne Pages MCP
+- **Progress Tracking** – Real-time display of AI processing stages (Thinking → Writing → Tool Calling → Deployment)
 
+---
 
-## examples
-<img width="1280" height="662" alt="317846db0c0788b24c10613b7d0775c0_720" src="https://github.com/user-attachments/assets/266c96a9-d2e6-4c35-9ff8-85899686e1ac" />
-<img width="1280" height="929" alt="5cce227b43f6e958c8162b2c917ffc16_720" src="https://github.com/user-attachments/assets/baabeff4-374b-4d67-bc97-b76543462b66" />
+## Examples
 
-![a747c77f0da7204666b4857ea771958e_720](https://github.com/user-attachments/assets/b213f4a6-62a9-43ac-adaa-721e37a09ea4)
+(See screenshots above)
 
+---
 
 ## Quick Start
 
@@ -29,7 +73,7 @@ An Agent-driven educational visualization platform that helps students understan
 ### Installation
 
 ```bash
-# Clone repository
+# Clone the repository
 git clone --recursive https://github.com/your-username/edu-ai-platform.git
 cd edu-ai-platform
 
@@ -38,11 +82,11 @@ cd frontend && pnpm install
 
 # Backend dependencies
 cd ../backend && uv sync
-```
+````
 
 ### Configuration
 
-Copy the environment variable template and fill in your API Key:
+Copy the environment variable template and fill in your API key:
 
 ```bash
 cp backend/.env.example backend/.env
@@ -51,11 +95,11 @@ cp backend/.env.example backend/.env
 Edit `backend/.env`:
 
 ```bash
-# Using Kimi (default)
+# Use Kimi (default)
 KIMI_API_KEY=sk-your-api-key
 KIMI_MODEL_NAME=kimi-k2-turbo-preview
 
-# Or use DeepSeek / OpenAI compatible API
+# Or use DeepSeek / OpenAI-compatible API
 LLM_PROVIDER_TYPE=openai_legacy
 OPENAI_API_KEY=sk-your-api-key
 OPENAI_BASE_URL=https://api.deepseek.com
@@ -63,7 +107,7 @@ OPENAI_MODEL_NAME=deepseek-chat
 OPENAI_REASONING_KEY=reasoning_content
 ```
 
-### Start
+### Run
 
 ```bash
 # Terminal 1 - Backend
@@ -73,60 +117,75 @@ cd backend && python main.py
 cd frontend && pnpm dev
 ```
 
-Visit http://localhost:3000
+Visit: [http://localhost:3000](http://localhost:3000)
+
+---
 
 ## Project Structure
 
-```
+```text
 edu-ai-platform/
 ├── frontend/           # Next.js frontend
 │   └── src/
 │       ├── app/        # Pages
-│       ├── components/ # Components
-│       └── hooks/      # WebSocket, state management
+│       ├── components/ # UI components
+│       └── hooks/      # WebSocket & state management
 ├── backend/            # FastAPI backend
 │   ├── main.py         # Main application
 │   ├── kimi_runner.py  # Kimi CLI wrapper
 │   ├── mcp.json        # MCP configuration
-│   └── agent/          # Agent config and prompts
+│   └── agent/          # Agent configs and prompts
 ├── kimi-cli/           # AI Agent core (submodule)
 └── kosong/             # LLM abstraction layer (submodule)
 ```
 
+---
+
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS 4 |
-| Backend | FastAPI, Python 3.13, WebSocket |
-| AI | Kimi CLI, MCP (Model Context Protocol) |
-| Deployment | EdgeOne Pages |
+| Layer      | Technology                                       |
+| ---------- | ------------------------------------------------ |
+| Frontend   | Next.js 16, React 19, TypeScript, Tailwind CSS 4 |
+| Backend    | FastAPI, Python 3.13, WebSocket                  |
+| AI         | Kimi CLI, MCP (Model Context Protocol)           |
+| Deployment | EdgeOne Pages                                    |
+
+---
 
 ## API
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/` | Service status |
-| GET | `/health` | Health check |
-| GET | `/api/history` | Get history |
-| DELETE | `/api/history/{task_id}` | Delete history |
-| WebSocket | `/ws/chat` | Real-time chat |
+| Method    | Endpoint                 | Description    |
+| --------- | ------------------------ | -------------- |
+| GET       | `/`                      | Service status |
+| GET       | `/health`                | Health check   |
+| GET       | `/api/history`           | Fetch history  |
+| DELETE    | `/api/history/{task_id}` | Delete history |
+| WebSocket | `/ws/chat`               | Real-time chat |
+
+---
 
 ## Acknowledgements
 
-This project is built upon the following excellent  projects:
+This project is built upon the following excellent open-source projects:
 
-- **[Kimi CLI](https://github.com/MoonshotAI/kimi-cli)** - Moonshot AI's open-source coding Agent framework, providing tool calling, MCP integration and other core capabilities
-- **[Kosong](https://github.com/MoonshotAI/kosong)** - Moonshot AI's open-source LLM abstraction layer, unifying message structures and multi-provider support for more flexible Agent development
-- **[EdgeOne Pages MCP](https://github.com/TencentEdgeOne/edgeone-pages-mcp)** - MCP service for EdgeOne Pages, providing one-click cloud deployment capability
+* **[Kimi CLI](https://github.com/MoonshotAI/kimi-cli)** – An open-source coding agent framework by Moonshot AI, providing core capabilities such as tool invocation and MCP integration
+* **[Kosong](https://github.com/MoonshotAI/kosong)** – An open-source LLM abstraction layer by Moonshot AI that unifies message structures and supports multiple providers, making agent development simpler and more flexible
+* **[EdgeOne Pages MCP](https://github.com/TencentEdgeOne/edgeone-pages-mcp)** – An MCP service for EdgeOne Pages that enables one-click cloud deployment
 
-Thanks to the Moonshot AI team and EdgeOne Pages community for their open-source contributions!
+Special thanks to the Moonshot AI team and EdgeOne Pages!
+
+---
 
 ## Contact
 
-For questions or suggestions, please contact: 3038880699@qq.com
+For questions or suggestions, please contact: [3038880699@qq.com](mailto:3038880699@qq.com)
 
+---
 
 ## License
-apache-2.0
-https://www.apache.org/licenses/LICENSE-2.0
+
+Apache-2.0
+[https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+```
+```
