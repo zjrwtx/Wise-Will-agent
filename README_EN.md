@@ -1,4 +1,4 @@
-# wise-will Edu Agent Platform
+# Wise-will Edu Agent Platform
 
 An Agent-driven educational visualization platform that helps students understand complex concepts through conversational interaction and automatically generates interactive visualizations.
 
@@ -9,6 +9,14 @@ An Agent-driven educational visualization platform that helps students understan
 - **Real-time Visualization Generation** - AI automatically generates interactive HTML visualizations
 - **Cloud Deployment** - Automatically deploy to cloud via EdgeOne Pages MCP
 - **Progress Tracking** - Real-time display of AI processing stages (Thinking → Writing → Tool Calling → Deploying)
+
+
+## examples
+<img width="1280" height="662" alt="317846db0c0788b24c10613b7d0775c0_720" src="https://github.com/user-attachments/assets/266c96a9-d2e6-4c35-9ff8-85899686e1ac" />
+<img width="1280" height="929" alt="5cce227b43f6e958c8162b2c917ffc16_720" src="https://github.com/user-attachments/assets/baabeff4-374b-4d67-bc97-b76543462b66" />
+
+![a747c77f0da7204666b4857ea771958e_720](https://github.com/user-attachments/assets/b213f4a6-62a9-43ac-adaa-721e37a09ea4)
+
 
 ## Quick Start
 
