@@ -1,4 +1,4 @@
-# wise-will Edu agent Platform
+# Wise-will Edu agent Platform
 
 Agent 驱动的教育可视化平台，通过对话式交互帮助学生理解复杂概念，自动生成交互式可视化内容。
 
