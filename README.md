@@ -10,6 +10,14 @@ Agent 驱动的教育可视化平台，通过对话式交互帮助学生理解�
 - **云端部署** - 通过 EdgeOne Pages MCP 自动部署到云端
 - **进度追踪** - 实时显示 AI 处理阶段（思考 → 编写 → 调用工具 → 部署）
 
+
+## 例子
+<img width="1280" height="662" alt="317846db0c0788b24c10613b7d0775c0_720" src="https://github.com/user-attachments/assets/266c96a9-d2e6-4c35-9ff8-85899686e1ac" />
+<img width="1280" height="929" alt="5cce227b43f6e958c8162b2c917ffc16_720" src="https://github.com/user-attachments/assets/baabeff4-374b-4d67-bc97-b76543462b66" />
+
+![a747c77f0da7204666b4857ea771958e_720](https://github.com/user-attachments/assets/b213f4a6-62a9-43ac-adaa-721e37a09ea4)
+
+
 ## 快速开始
 
 ### 环境要求
