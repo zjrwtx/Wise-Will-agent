@@ -127,4 +127,6 @@ Thanks to the Moonshot AI team and EdgeOne Pages community for their open-source
 For questions or suggestions, please contact: 3038880699@qq.com
 
 
-
+## License
+apache-2.0
+https://www.apache.org/licenses/LICENSE-2.0

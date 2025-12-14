@@ -129,3 +129,5 @@ edu-ai-platform/
 
 ## License
 
+apache-2.0
+https://www.apache.org/licenses/LICENSE-2.0
