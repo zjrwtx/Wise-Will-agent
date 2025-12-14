@@ -105,5 +105,19 @@ edu-ai-platform/
 | WebSocket | `/ws/chat` | 实时聊天 |
 
 
+## 致谢
+
+本项目基于以下优秀项目构建：
+
+- **[Kimi CLI](https://github.com/MoonshotAI/kimi-cli)** - Moonshot AI 开源的 coding Agent 框架，提供工具调用、MCP 集成等核心能力
+- **[Kosong](https://github.com/MoonshotAI/kosong)** - Moonshot AI 开源的 LLM 抽象层，统一消息结构与多 Provider 支持，让 Agent 开发更简洁灵活
+- **[EdgeOne Pages MCP](https://github.com/TencentEdgeOne/edgeone-pages-mcp)** - EdgeOne Pages 的 MCP 服务，提供一键云端部署能力
+
+感谢 Moonshot AI 团队和 EdgeOne Pages！
+
+## 联系方式
+
+如有问题或建议，请联系：3038880699@qq.com
+
 ## License
 
