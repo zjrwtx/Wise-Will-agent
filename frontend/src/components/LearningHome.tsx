@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { TopicRecord } from "@/hooks/useLearningProgress";
 
 interface LearningHomeProps {
@@ -243,6 +244,7 @@ export function LearningHome({
               display: "flex",
               gap: 16,
               alignItems: "flex-start",
+              marginBottom: 24,
             }}
           >
             <div
@@ -270,6 +272,48 @@ export function LearningHome({
               </p>
             </div>
           </div>
+
+          {/* Video to PDF Tool */}
+          <Link
+            href="/video-to-pdf"
+            style={{
+              display: "flex",
+              padding: 24,
+              backgroundColor: "var(--tertiary)",
+              borderRadius: 16,
+              gap: 16,
+              alignItems: "center",
+              textDecoration: "none",
+              transition: "all 0.2s",
+            }}
+          >
+            <div
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 12,
+                backgroundColor: "rgba(139, 92, 246, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                fontSize: 24,
+              }}
+            >
+              🎬
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 16, fontWeight: 500, color: "var(--foreground)", marginBottom: 4 }}>
+                视频转PDF笔记
+              </div>
+              <p style={{ fontSize: 14, color: "var(--secondary)" }}>
+                上传教学视频，AI自动提取关键帧、识别语音，生成结构化笔记
+              </p>
+            </div>
+            <svg style={{ width: 20, height: 20, color: "var(--secondary)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </main>
     </div>

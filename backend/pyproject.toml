@@ -9,6 +9,15 @@ dependencies = [
     "pydantic>=2.10.0",
     "websockets>=14.0",
     "kimi-cli",
+    "python-dotenv>=1.0.0",
+    "python-multipart>=0.0.9",
+    # Video processing dependencies
+    "openai-whisper>=20240930",
+    "ffmpeg-python>=0.2.0",
+    "opencv-python>=4.8.0",
+    "reportlab>=4.0.0",
+    "pillow>=10.0.0",
+    "openai>=1.0.0",
 ]
 
 [project.optional-dependencies]
@@ -17,6 +26,9 @@ dev = [
     "pytest-asyncio>=0.24.0",
     "httpx>=0.28.0",
 ]
+
+[tool.setuptools.packages.find]
+include = ["video_processor*"]
 
 [tool.uv.sources]
 kimi-cli = { path = "../kimi-cli", editable = true }
