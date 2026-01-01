@@ -10,6 +10,22 @@
 
 ## 🆕 更新日志
 
+### 2026-01-01: 新增 FlashNote 闪卡笔记功能
+
+集成 **FlashNote 闪卡笔记** 系统，支持：
+
+- 📝 **Markdown 笔记管理** - 导入/导出/创建/编辑 Markdown 文件
+- 🎴 **闪卡学习模式** - 将 Markdown 转换为学习卡片，支持键盘导航
+- 🔍 **全文搜索** - 实时搜索所有笔记内容
+- 🔖 **书签收藏** - 保存/整理网页链接，支持标签分类，通过 Jina AI 提取内容
+- 🎨 **主题系统** - 多种颜色主题，支持持久化
+- ☁️ **WebDAV 云同步** - 同步笔记到 WebDAV 服务器
+- 📐 **数学公式支持** - KaTeX 渲染数学公式
+
+**使用方法：** 访问首页，点击「FlashNote 闪卡笔记」工具卡片
+
+---
+
 ### 2025-12-22: 新增视频转PDF功能
 
 新增 **视频转PDF笔记** 功能，支持：
@@ -84,6 +100,7 @@
 - **云端部署** - 通过 EdgeOne Pages MCP 自动部署到云端
 - **进度追踪** - 实时显示 AI 处理阶段（思考 → 编写 → 调用工具 → 部署）
 - **视频转PDF** - 上传教学视频，AI 自动提取关键帧、识别语音，生成结构化笔记
+- **FlashNote 闪卡笔记** - Markdown 笔记管理、闪卡学习、全文搜索、书签收藏、WebDAV 云同步
 
 
 ## 例子
@@ -157,9 +174,11 @@ cd frontend && pnpm dev
 edu-ai-platform/
 ├── frontend/           # Next.js 前端
 │   └── src/
-│       ├── app/        # 页面
-│       ├── components/ # 组件
-│       └── hooks/      # WebSocket、状态管理
+│       ├── app/        # 页面 (含 /flashnote 路由)
+│       ├── components/ # 组件 (含 flashnote/ 模块)
+│       ├── hooks/      # WebSocket、FlashNote 状态管理
+│       ├── types/      # TypeScript 类型定义
+│       └── utils/      # 工具函数 (markdown, themes, webdav)
 ├── backend/            # FastAPI 后端
 │   ├── main.py         # 主应用
 │   ├── kimi_runner.py  # Kimi CLI 封装
@@ -177,6 +196,7 @@ edu-ai-platform/
 | 前端 | Next.js 16, React 19, TypeScript, Tailwind CSS 4 |
 | 后端 | FastAPI, Python 3.13, WebSocket |
 | AI | Kimi CLI, MCP (Model Context Protocol) |
+| 笔记 | KaTeX, WebDAV, Markdown (remark/rehype) |
 | 部署 | EdgeOne Pages |
 
 ## API
