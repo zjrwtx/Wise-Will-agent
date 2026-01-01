@@ -7,3 +7,5 @@ export type {
   UseWebSocketOptions,
   UseWebSocketReturn,
 } from "./useWebSocket";
+
+export { useFlashNote } from "./useFlashNote";
