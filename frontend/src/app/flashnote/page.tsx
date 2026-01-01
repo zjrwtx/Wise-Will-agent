@@ -1,21 +1,20 @@
 "use client";
 
 /**
- * FlashNote Page.
+ * FlashNote Page - Google-Doubao Style.
  *
  * Main page for the FlashNote learning system with note management,
  * flashcard study, bookmarks, themes, and cloud sync.
  *
  * Features:
- *     - Import/export Markdown files
- *     - Create and edit notes
- *     - Study flashcards with navigation
- *     - Bookmark collections with URL extraction
- *     - Multiple themes
- *     - WebDAV cloud sync
+ * - Unified Google-style color palette
+ * - Doubao-style centered layout for empty state
+ * - Bottom navigation bar
+ * - Consistent card and button styles
  */
 
 import { useRef } from "react";
+import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import {
   HomeIcon,
@@ -40,6 +39,25 @@ import {
   StorageProviderModal,
 } from "@/components/flashnote";
 import { useFlashNote } from "@/hooks/useFlashNote";
+import {
+  colors,
+  shadows,
+  radius,
+  typography,
+  animationKeyframes,
+  getToolGradient,
+} from "@/styles/design-system";
+
+/** Example markdown format */
+const EXAMPLE_FORMAT = `# Title 1
+This is the first card content
+- Supports lists
+- **Bold text**
+- Math: $E = mc^2$
+
+## Title 2
+This is the second card
+Inline math: $\\alpha + \\beta$`;
 
 /**
  * FlashNote main page component.
@@ -92,7 +110,6 @@ export default function FlashNotePage() {
 
     // Theme operations
     changeTheme,
-    themes,
 
     // Storage operations
     handleStorageProviderChange,
@@ -108,7 +125,6 @@ export default function FlashNotePage() {
     if (fileList && fileList.length > 0) {
       await importFiles(fileList);
     }
-    // Reset input
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -123,116 +139,161 @@ export default function FlashNotePage() {
   };
 
   /**
+   * Render empty state with Doubao-style centered layout.
+   */
+  const renderEmptyState = () => (
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "48px 24px",
+        animation: "fadeIn 0.4s ease",
+      }}
+    >
+      {/* Hero */}
+      <div
+        style={{
+          width: 80,
+          height: 80,
+          borderRadius: radius.xl,
+          background: getToolGradient("flashnote"),
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 36,
+          marginBottom: 24,
+        }}
+      >
+        📝
+      </div>
+      <h2
+        style={{
+          fontSize: 24,
+          fontWeight: typography.fontWeight.semibold,
+          color: colors.textPrimary,
+          marginBottom: 8,
+        }}
+      >
+        开始学习
+      </h2>
+      <p
+        style={{
+          fontSize: typography.fontSize.lg,
+          color: colors.textSecondary,
+          marginBottom: 32,
+          textAlign: "center",
+          maxWidth: 320,
+        }}
+      >
+        导入 Markdown 文件创建闪卡，高效记忆知识点
+      </p>
+
+      {/* Action Buttons */}
+      <div style={{ display: "flex", gap: 12, marginBottom: 40 }}>
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          style={{
+            padding: "12px 24px",
+            backgroundColor: colors.flashNote,
+            color: "white",
+            borderRadius: radius.md,
+            fontSize: typography.fontSize.md,
+            fontWeight: typography.fontWeight.medium,
+            cursor: "pointer",
+            border: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <ArrowUpTrayIcon style={{ width: 18, height: 18 }} />
+          导入文件
+        </button>
+        <button
+          onClick={startNewFile}
+          style={{
+            padding: "12px 24px",
+            backgroundColor: "transparent",
+            color: colors.flashNote,
+            borderRadius: radius.md,
+            fontSize: typography.fontSize.md,
+            fontWeight: typography.fontWeight.medium,
+            cursor: "pointer",
+            border: `1px solid ${colors.flashNote}`,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <PlusIcon style={{ width: 18, height: 18 }} />
+          新建笔记
+        </button>
+      </div>
+
+      {/* Format Example */}
+      <div
+        style={{
+          backgroundColor: colors.surface,
+          borderRadius: radius.card,
+          border: `1px solid ${colors.border}`,
+          padding: 20,
+          maxWidth: 400,
+          width: "100%",
+          boxShadow: shadows.card,
+        }}
+      >
+        <p
+          style={{
+            fontSize: typography.fontSize.sm,
+            fontWeight: typography.fontWeight.medium,
+            color: colors.textSecondary,
+            marginBottom: 12,
+          }}
+        >
+          支持的 Markdown 格式：
+        </p>
+        <pre
+          style={{
+            fontSize: typography.fontSize.sm,
+            color: colors.textTertiary,
+            whiteSpace: "pre-wrap",
+            fontFamily: typography.fontMono,
+            lineHeight: typography.lineHeight.relaxed,
+            margin: 0,
+          }}
+        >
+          {EXAMPLE_FORMAT}
+        </pre>
+      </div>
+    </div>
+  );
+
+  /**
    * Render main content based on active tab.
    */
   const renderMainContent = () => {
     // Empty state
     if (files.length === 0 && activeTab === "home") {
-      return (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "64px 16px",
-          }}
-        >
-          <DocumentTextIcon
-            style={{
-              width: 64,
-              height: 64,
-              margin: "0 auto 16px",
-              color: "var(--fn-primary, var(--accent))",
-            }}
-          />
-          <h2
-            style={{
-              fontSize: 24,
-              fontWeight: 600,
-              marginBottom: 8,
-            }}
-          >
-            Start Learning
-          </h2>
-          <p
-            style={{
-              color: "var(--fn-secondary, var(--secondary))",
-              marginBottom: 32,
-            }}
-          >
-            Import Markdown files to create flashcards
-          </p>
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              padding: "12px 24px",
-              backgroundColor: "var(--fn-primary, var(--accent))",
-              color: "var(--fn-primary-foreground, white)",
-              borderRadius: 12,
-              fontSize: 15,
-              fontWeight: 500,
-            }}
-          >
-            Import Markdown Files
-          </button>
-
-          <div
-            style={{
-              marginTop: 32,
-              padding: 16,
-              borderRadius: 12,
-              backgroundColor: "var(--fn-card-background, var(--tertiary))",
-              textAlign: "left",
-              maxWidth: 400,
-              margin: "32px auto 0",
-            }}
-          >
-            <p
-              style={{
-                fontSize: 14,
-                fontWeight: 500,
-                marginBottom: 8,
-              }}
-            >
-              Supported Format:
-            </p>
-            <pre
-              style={{
-                fontSize: 12,
-                color: "var(--fn-secondary, var(--secondary))",
-                whiteSpace: "pre-wrap",
-                fontFamily: "monospace",
-              }}
-            >
-              {`# Title 1
-This is the first card content
-- Supports lists
-- **Bold text**
-- Math: $E = mc^2$
-
-## Title 2
-This is the second card
-Inline math: $\\alpha + \\beta$
-Block math:
-$$
-\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}
-$$`}
-            </pre>
-          </div>
-        </div>
-      );
+      return renderEmptyState();
     }
 
     // Home tab - file list
     if (activeTab === "home") {
       return (
-        <NoteList
-          files={files}
-          onSelectFile={handleSelectFile}
-          onEditFile={startEditFile}
-          onDeleteFile={deleteFile}
-          onExportFile={exportFile}
-          onExportAll={exportAllFiles}
-          onTogglePin={togglePinFile}
-        />
+        <div style={{ padding: 16 }}>
+          <NoteList
+            files={files}
+            onSelectFile={handleSelectFile}
+            onEditFile={startEditFile}
+            onDeleteFile={deleteFile}
+            onExportFile={exportFile}
+            onExportAll={exportAllFiles}
+            onTogglePin={togglePinFile}
+          />
+        </div>
       );
     }
 
@@ -255,15 +316,17 @@ $$`}
     // Bookmarks tab
     if (activeTab === "bookmarks") {
       return (
-        <BookmarkManager
-          collections={bookmarkCollections}
-          onAddCollection={addBookmarkCollection}
-          onAddBookmark={addBookmark}
-          onDeleteBookmark={deleteBookmark}
-          onDeleteCollection={deleteBookmarkCollection}
-          onTogglePinCollection={togglePinCollection}
-          onImportAsNote={importExtractedContent}
-        />
+        <div style={{ padding: 16 }}>
+          <BookmarkManager
+            collections={bookmarkCollections}
+            onAddCollection={addBookmarkCollection}
+            onAddBookmark={addBookmark}
+            onDeleteBookmark={deleteBookmark}
+            onDeleteCollection={deleteBookmarkCollection}
+            onTogglePinCollection={togglePinCollection}
+            onImportAsNote={importExtractedContent}
+          />
+        </div>
       );
     }
 
@@ -278,7 +341,6 @@ $$`}
       );
     }
 
-    // Default to home
     return null;
   };
 
@@ -286,8 +348,9 @@ $$`}
     <main
       style={{
         minHeight: "100vh",
-        backgroundColor: "var(--fn-background, var(--background))",
-        color: "var(--fn-foreground, var(--foreground))",
+        background: colors.backgroundGradient,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {/* Hidden file input */}
@@ -304,54 +367,102 @@ $$`}
       {/* Header */}
       <header
         style={{
-          padding: "12px 16px",
+          padding: "14px 20px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          borderBottom: "1px solid var(--border)",
-          backgroundColor: "var(--fn-background, var(--background))",
+          borderBottom: `1px solid ${colors.borderLight}`,
+          backgroundColor: colors.surface,
           position: "sticky",
           top: 0,
           zIndex: 30,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <a
+          <Link
             href="/"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 8,
-              color: "var(--fn-secondary, var(--secondary))",
-              fontSize: 14,
+              gap: 6,
+              color: colors.textSecondary,
+              fontSize: typography.fontSize.md,
+              textDecoration: "none",
+              padding: "4px 8px",
+              borderRadius: radius.sm,
+              transition: "all 0.15s",
             }}
           >
-            ← Back
-          </a>
-          <h1
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-            }}
-          >
-            FlashNote
-          </h1>
+            <svg
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </Link>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: radius.md,
+                background: getToolGradient("flashnote"),
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 16,
+              }}
+            >
+              📝
+            </div>
+            <h1
+              style={{
+                fontSize: typography.fontSize.xl,
+                fontWeight: typography.fontWeight.semibold,
+                color: colors.textPrimary,
+              }}
+            >
+              FlashNote
+            </h1>
+          </div>
         </div>
         {files.length > 0 && activeTab === "home" && (
           <button
             onClick={clearAllFiles}
             style={{
-              fontSize: 13,
-              color: "var(--fn-destructive, #ef4444)",
+              fontSize: typography.fontSize.sm,
+              color: colors.error,
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: "6px 12px",
+              borderRadius: radius.sm,
             }}
           >
-            Clear All
+            清空全部
           </button>
         )}
       </header>
 
       {/* Main Content */}
-      <div style={{ paddingBottom: 80 }}>{renderMainContent()}</div>
+      <div
+        style={{
+          flex: 1,
+          paddingBottom: 90,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {renderMainContent()}
+      </div>
 
       {/* Bottom Navigation */}
       <div
@@ -360,8 +471,8 @@ $$`}
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "var(--fn-card-background, var(--tertiary))",
-          borderTop: "1px solid var(--border)",
+          backgroundColor: colors.surface,
+          borderTop: `1px solid ${colors.borderLight}`,
           zIndex: 40,
         }}
       >
@@ -382,7 +493,7 @@ $$`}
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-            padding: "8px 16px",
+            padding: "10px 16px 14px",
             maxWidth: 480,
             margin: "0 auto",
             position: "relative",
@@ -400,9 +511,10 @@ $$`}
               alignItems: "center",
               padding: 8,
               color:
-                activeTab === "home"
-                  ? "var(--fn-primary, var(--accent))"
-                  : "var(--fn-secondary, var(--secondary))",
+                activeTab === "home" ? colors.flashNote : colors.textTertiary,
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
             }}
           >
             {activeTab === "home" ? (
@@ -410,7 +522,7 @@ $$`}
             ) : (
               <HomeIcon style={{ width: 24, height: 24 }} />
             )}
-            <span style={{ fontSize: 11, marginTop: 2 }}>Home</span>
+            <span style={{ fontSize: 11, marginTop: 4 }}>首页</span>
           </button>
 
           {/* Bookmarks */}
@@ -423,8 +535,11 @@ $$`}
               padding: 8,
               color:
                 activeTab === "bookmarks"
-                  ? "var(--fn-primary, var(--accent))"
-                  : "var(--fn-secondary, var(--secondary))",
+                  ? colors.flashNote
+                  : colors.textTertiary,
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
             }}
           >
             {activeTab === "bookmarks" ? (
@@ -432,22 +547,7 @@ $$`}
             ) : (
               <LinkIcon style={{ width: 24, height: 24 }} />
             )}
-            <span style={{ fontSize: 11, marginTop: 2 }}>Bookmarks</span>
-          </button>
-
-          {/* Import */}
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              padding: 8,
-              color: "var(--fn-secondary, var(--secondary))",
-            }}
-          >
-            <ArrowUpTrayIcon style={{ width: 24, height: 24 }} />
-            <span style={{ fontSize: 11, marginTop: 2 }}>Import</span>
+            <span style={{ fontSize: 11, marginTop: 4 }}>书签</span>
           </button>
 
           {/* New Note (Center Button) */}
@@ -457,12 +557,14 @@ $$`}
               position: "absolute",
               left: "50%",
               transform: "translateX(-50%)",
-              top: -24,
-              padding: 16,
-              backgroundColor: "var(--fn-primary, var(--accent))",
-              color: "var(--fn-primary-foreground, white)",
-              borderRadius: 16,
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+              top: -20,
+              padding: 14,
+              background: getToolGradient("flashnote"),
+              color: "white",
+              borderRadius: radius.lg,
+              boxShadow: shadows.lg,
+              border: "none",
+              cursor: "pointer",
             }}
             aria-label="New note"
           >
@@ -482,9 +584,10 @@ $$`}
               alignItems: "center",
               padding: 8,
               color:
-                activeTab === "study"
-                  ? "var(--fn-primary, var(--accent))"
-                  : "var(--fn-secondary, var(--secondary))",
+                activeTab === "study" ? colors.flashNote : colors.textTertiary,
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
               opacity: currentFile ? 1 : 0.5,
             }}
           >
@@ -493,7 +596,7 @@ $$`}
             ) : (
               <DocumentTextIcon style={{ width: 24, height: 24 }} />
             )}
-            <span style={{ fontSize: 11, marginTop: 2 }}>Study</span>
+            <span style={{ fontSize: 11, marginTop: 4 }}>学习</span>
           </button>
 
           {/* Cloud */}
@@ -504,38 +607,14 @@ $$`}
               flexDirection: "column",
               alignItems: "center",
               padding: 8,
-              color: showStorageModal
-                ? "var(--fn-primary, var(--accent))"
-                : "var(--fn-secondary, var(--secondary))",
+              color: showStorageModal ? colors.flashNote : colors.textTertiary,
+              backgroundColor: "transparent",
+              border: "none",
+              cursor: "pointer",
             }}
           >
             <CloudIcon style={{ width: 24, height: 24 }} />
-            <span style={{ fontSize: 11, marginTop: 2 }}>Cloud</span>
-          </button>
-
-          {/* Theme */}
-          <button
-            onClick={() => setShowThemes((prev) => !prev)}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              padding: 8,
-              color: showThemes
-                ? "var(--fn-primary, var(--accent))"
-                : "var(--fn-secondary, var(--secondary))",
-            }}
-          >
-            <div
-              style={{
-                width: 24,
-                height: 24,
-                borderRadius: 8,
-                backgroundColor: currentTheme.colors.primary,
-                border: "2px solid currentColor",
-              }}
-            />
-            <span style={{ fontSize: 11, marginTop: 2 }}>Theme</span>
+            <span style={{ fontSize: 11, marginTop: 4 }}>云端</span>
           </button>
         </div>
       </div>
@@ -546,6 +625,9 @@ $$`}
         onClose={() => setShowStorageModal(false)}
         onProviderChange={handleStorageProviderChange}
       />
+
+      {/* Global Styles */}
+      <style jsx global>{animationKeyframes}</style>
     </main>
   );
 }

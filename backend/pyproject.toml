@@ -18,6 +18,12 @@ dependencies = [
     "reportlab>=4.0.0",
     "pillow>=10.0.0",
     "openai>=1.0.0",
+    # Manim dependencies
+    "manim>=0.18.0",
+    # Document to PPT dependencies
+    "python-pptx>=1.0.0",
+    "python-docx>=1.1.0",
+    "pymupdf>=1.24.0",
 ]
 
 [project.optional-dependencies]
@@ -28,7 +34,7 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["video_processor*"]
+include = ["video_processor*", "manim_service*", "doc_to_ppt*"]
 
 [tool.uv.sources]
 kimi-cli = { path = "../kimi-cli", editable = true }

@@ -1,11 +1,16 @@
-Traceback (most recent call last):
-  File "<string>", line 6, in <module>
-    with socketserver.TCPServer(('', PORT), Handler) as httpd:
-         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/miniconda3/lib/python3.13/socketserver.py", line 457, in __init__
-    self.server_bind()
-    ~~~~~~~~~~~~~~~~^^
-  File "/opt/miniconda3/lib/python3.13/socketserver.py", line 478, in server_bind
-    self.socket.bind(self.server_address)
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-OSError: [Errno 48] Address already in use
+INFO:     Will watch for changes in these directories: ['/Users/finnywang/codebase/edu-ai-platform/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [12422] using WatchFiles
+INFO:video_processor.pdf_generator:Registered Chinese font: /System/Library/Fonts/STHeiti Light.ttc
+INFO:manim_service.generator:LaTeX availability: False
+INFO:     Started server process [12452]
+INFO:     Waiting for application startup.
+INFO:main:Starting Edu AI Platform Backend...
+INFO:     Application startup complete.
+INFO:     127.0.0.1:64675 - "GET /api/manim/check HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64757 - "WebSocket /ws/chat" [accepted]
+INFO:main:WebSocket connection established
+INFO:     connection open
+INFO:     127.0.0.1:64764 - "WebSocket /ws/chat" [accepted]
+INFO:main:WebSocket connection established
+INFO:     connection open
